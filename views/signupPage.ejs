@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Document</title>
+    </head>
+    <body>
+        <!-- <% if(errors) { %>
+        <ul>
+            <% errors.forEach(error => { %>
+            <li><%= error.msg %></li>
+            <% }) %>
+        </ul>
+        <% } %> -->
+        <form action="/signup" method="POST" style="display: flex; flex-direction: column; width: 10vw;">
+            <label for="Username">Username:</label>
+            <input value="<%= username || '' %>" type="text" placeholder="Username" name="username">
+            <% const usernameError = errors?.find(error => error.path === "username"); %>
+
+            <% if (usernameError) { %>
+            <p style="color: red;"><%= usernameError.msg %></p>
+            <% } %>
+
+
+            <label for="Email">Email:</label>
+            <input value="<%= email || '' %>" type="text" placeholder="Email" name="email">
+            <% const emailError = errors?.find(error => error.path === "email"); %>
+
+            <% if (emailError) { %>
+            <p style="color: red;""><%= emailError.msg %></p>
+            <% } %>
+
+            <label for="password">Password:</label>
+            <input type="password" placeholder="Password" name="password">
+
+            <label for="confirm-password">Confirm Password:</label>
+            <input type="password" placeholder="Confirm Password" name="confirm-password">
+            <% const passwordError = errors?.find(error => error.path === "password" || error.path === "confirm-password"); %>
+
+            <% if (passwordError) { %>
+            <p style="color: red;"> <%= passwordError.msg %></p>
+            <% } %>
+
+            <button type="submit">Sign Up</button>
+        </form>
+
+        <a href="/">Home</a>
+    </body>
+</html>
