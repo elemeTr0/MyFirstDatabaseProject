@@ -1,5 +1,6 @@
 const { Router }= require("express");
 const pool = require("../db/pool")
+const profileController = require("../controllers/profileController")
 
 const profileRouter = Router();
 const requireAuth = (req,res,next)=>{
@@ -20,14 +21,6 @@ profileRouter.get("/profile",requireAuth, async (req,res) =>{
     res.render("profile", {user: user})
 })
 
-profileRouter.post("/logout", (req,res) => {
-    req.session.destroy((err) => {
-        if(err){
-            return res.send("Could not log out")
-        }
-
-        res.redirect("/login")
-    })
-})
+profileRouter.post("/logout", profileController)
 
 module.exports = profileRouter;
